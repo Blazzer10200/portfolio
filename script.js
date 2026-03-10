@@ -58,9 +58,8 @@ if (header) {
   }, { passive: true });
 }
 
-// Resume multi-format download (PDF, TXT, HTML) — single source: Braison_Swilling_Resume.md
+// Resume converter — captures the webpage content and exports as PDF, TXT, or HTML
 (function () {
-  var RESUME_MD_URL = 'Braison_Swilling_Resume.md';
   var FILENAME = 'Braison_Swilling_Resume';
   var statusEl = document.getElementById('resume-dl-status');
 
@@ -77,11 +76,20 @@ if (header) {
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
-  function getResumeMd() {
-    return fetch(RESUME_MD_URL).then(function (r) {
-      if (!r.ok) throw new Error('not found');
-      return r.text();
-    });
+  // Grab the main page content (skip header nav, footer, and resume download section itself)
+  function getPageContent() {
+    var clone = document.querySelector('main').cloneNode(true);
+    // Remove the resume download buttons from the export
+    var resumeDl = clone.querySelector('.resume-downloads');
+    if (resumeDl) resumeDl.remove();
+    var resumeStatus = clone.querySelector('.resume-status');
+    if (resumeStatus) resumeStatus.remove();
+    return clone;
+  }
+
+  function getPlainText() {
+    var content = getPageContent();
+    return content.innerText || content.textContent;
   }
 
   document.querySelectorAll('.resume-dl').forEach(function (btn) {
@@ -89,47 +97,44 @@ if (header) {
       var format = this.getAttribute('data-format');
       if (!format) return;
 
-      setStatus('Loading…');
+      if (format === 'txt') {
+        var text = getPlainText();
+        var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        downloadBlob(blob, FILENAME + '.txt');
+        setStatus('Downloaded TXT.');
 
-      getResumeMd()
-        .then(function (md) {
-          if (format === 'txt') {
-            var blob = new Blob([md], { type: 'text/plain;charset=utf-8' });
-            downloadBlob(blob, FILENAME + '.txt');
-            setStatus('Downloaded TXT.');
-          } else if (format === 'html') {
-            var html = (typeof marked !== 'undefined' ? marked.parse(md) : md.replace(/\n/g, '<br>'));
-            var doc = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>' + FILENAME + '</title><style>body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;line-height:1.5;} h1{font-size:1.5rem;} h2{margin-top:1.5rem;border-bottom:1px solid #ccc;} h3{margin-top:1rem;} ul{padding-left:1.25rem;} hr{border:none;border-top:1px solid #ddd;margin:1rem 0;}</style></head><body>' + html + '</body></html>';
-            var blob = new Blob([doc], { type: 'text/html;charset=utf-8' });
-            downloadBlob(blob, FILENAME + '.html');
-            setStatus('Downloaded HTML.');
-          } else if (format === 'pdf' && typeof html2pdf !== 'undefined') {
-            var html = (typeof marked !== 'undefined' ? marked.parse(md) : md.replace(/\n/g, '<br>'));
-            var wrap = document.createElement('div');
-            wrap.className = 'resume-pdf-container';
-            wrap.innerHTML = html;
-            document.body.appendChild(wrap);
-            setStatus('Creating PDF…');
-            html2pdf().from(wrap).set({
-              margin: 10,
-              filename: FILENAME + '.pdf',
-              image: { type: 'jpeg', quality: 0.98 },
-              html2canvas: { scale: 2 },
-              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).save().then(function () {
-              document.body.removeChild(wrap);
-              setStatus('Downloaded PDF.');
-            }).catch(function () {
-              document.body.removeChild(wrap);
-              setStatus('PDF failed. Try TXT or MD.');
-            });
-          } else {
-            setStatus('PDF library not loaded. Try TXT or MD.');
-          }
-        })
-        .catch(function () {
-          setStatus('Could not load resume. Use MD link or ensure the file is available.');
+      } else if (format === 'html') {
+        var content = getPageContent();
+        var doc = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>' + FILENAME + '</title><style>body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#1a1a1a;} h1{font-size:1.5rem;} h2{margin-top:1.5rem;border-bottom:1px solid #ccc;padding-bottom:0.25rem;} h3{margin-top:1rem;} ul{padding-left:1.25rem;} .pill{display:inline-block;padding:2px 8px;margin:2px;border:1px solid #ccc;border-radius:4px;font-size:0.85rem;}</style></head><body>' + content.innerHTML + '</body></html>';
+        var blob = new Blob([doc], { type: 'text/html;charset=utf-8' });
+        downloadBlob(blob, FILENAME + '.html');
+        setStatus('Downloaded HTML.');
+
+      } else if (format === 'pdf') {
+        if (typeof html2pdf === 'undefined') {
+          setStatus('PDF library not loaded. Try TXT or HTML.');
+          return;
+        }
+        setStatus('Creating PDF…');
+        var content = getPageContent();
+        var wrap = document.createElement('div');
+        wrap.className = 'resume-pdf-container';
+        wrap.innerHTML = content.innerHTML;
+        document.body.appendChild(wrap);
+        html2pdf().from(wrap).set({
+          margin: 10,
+          filename: FILENAME + '.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).save().then(function () {
+          document.body.removeChild(wrap);
+          setStatus('Downloaded PDF.');
+        }).catch(function () {
+          document.body.removeChild(wrap);
+          setStatus('PDF failed. Try TXT or HTML.');
         });
+      }
     });
   });
 })();
