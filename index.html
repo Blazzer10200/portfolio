@@ -46,7 +46,13 @@
             <span>Pine Bluff, AR</span>
           </div>
         </div>
-        <a href="#about" class="hero-cta">See what I bring <span aria-hidden="true">&darr;</span></a>
+        <div class="hero-buttons">
+          <a href="#about" class="hero-cta">See what I bring <span aria-hidden="true">&darr;</span></a>
+          <button type="button" class="hero-cta hero-cta-outline" id="download-pdf">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Resume
+          </button>
+        </div>
       </div>
     </section>
 
@@ -142,7 +148,7 @@
       <article class="job">
         <div class="job-head">
           <h3>Custom AI Workflow System</h3>
-          <span class="job-role">Live — In Production</span>
+          <span class="job-role">Live - In Production</span>
         </div>
         <p>I built a system that trains AI to do specific jobs instead of just giving generic answers. It's the same setup I used to build this whole site.</p>
       </article>
@@ -191,7 +197,7 @@
           <p>Did pre-use checks and ran heavy equipment like trackhoes, backhoes, dozers, and trash trucks. When something broke down I'd figure out what was wrong and fix it if I could. Followed OSHA and company safety rules. Worked with the crew on cleanup, ditching, and waste haul jobs.</p>
         </article>
       </div>
-      <p class="education-note">Education: White Hall High School (Diploma, IT & Computer Applications); Codecademy — Learn HTML (2024).</p>
+      <p class="education-note">Education: White Hall High School (Diploma, IT & Computer Applications); Codecademy - Learn HTML (2024).</p>
     </section>
 
 
@@ -218,6 +224,7 @@
     <p>Built with HTML, CSS, and JavaScript. I planned it out and used AI to write the code.</p>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
