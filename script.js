@@ -103,7 +103,7 @@ if (header) {
 (function () {
   var el = document.getElementById('hero-tagline');
   if (!el) return;
-  var text = 'IT specialist who scripts, troubleshoots, and automates with AI';
+  var text = 'IT support, scripting, and making AI actually useful';
   var i = 0;
   var cursor = document.createElement('span');
   cursor.className = 'cursor';
