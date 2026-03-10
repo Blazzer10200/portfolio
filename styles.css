@@ -333,6 +333,107 @@ a:hover { text-decoration: underline; }
   background: rgba(37, 99, 235, 0.12);
   color: var(--accent);
 }
+/* --- Projects --- */
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.project-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.15), 0 0 30px rgba(59, 130, 246, 0.05);
+}
+.project-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.project-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  color: #fff;
+}
+.project-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+}
+.project-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0 0 1.5rem 0;
+}
+.workflow-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 1.5rem;
+}
+.workflow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+.workflow-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  border-radius: 10px;
+  color: var(--accent);
+}
+.workflow-step-result .workflow-icon {
+  background: rgba(52, 211, 153, 0.1);
+  border-color: rgba(52, 211, 153, 0.3);
+  color: #34d399;
+}
+.workflow-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.workflow-content strong {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.workflow-content span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.workflow-connector {
+  width: 2px;
+  height: 16px;
+  background: var(--border);
+  margin-left: 19px;
+}
+.project-proof {
+  background: rgba(37, 99, 235, 0.06);
+  border-left: 3px solid var(--accent);
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  border-radius: 0 6px 6px 0;
+}
+.project-proof strong {
+  color: #fff;
+}
+
 /* --- Experience --- */
 .timeline { margin-bottom: 1.5rem; }
 .job {
