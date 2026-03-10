@@ -60,7 +60,7 @@ if (header) {
 
 // Resume multi-format download (PDF, TXT, HTML) — single source: Braison_Swilling_Resume.md
 (function () {
-  var RESUME_MD_URL = '../Braison_Swilling_Resume.md';
+  var RESUME_MD_URL = 'Braison_Swilling_Resume.md';
   var FILENAME = 'Braison_Swilling_Resume';
   var statusEl = document.getElementById('resume-dl-status');
 
@@ -78,14 +78,9 @@ if (header) {
   }
 
   function getResumeMd() {
-    function tryFetch(url) {
-      return fetch(url).then(function (r) {
-        if (!r.ok) throw new Error('not found');
-        return r.text();
-      });
-    }
-    return tryFetch(RESUME_MD_URL).catch(function () {
-      return tryFetch('Braison_Swilling_Resume.md');
+    return fetch(RESUME_MD_URL).then(function (r) {
+      if (!r.ok) throw new Error('not found');
+      return r.text();
     });
   }
 
