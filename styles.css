@@ -141,6 +141,8 @@ a:hover { text-decoration: underline; }
   height: 100%;
   pointer-events: none;
   opacity: 0.12;
+  -webkit-mask-image: linear-gradient(to bottom, white 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, white 50%, transparent 100%);
 }
 .hero-name {
   font-size: clamp(2.25rem, 6vw, 3.5rem);
