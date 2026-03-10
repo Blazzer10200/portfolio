@@ -364,8 +364,13 @@ a:hover { text-decoration: underline; }
   font-family: 'Outfit', sans-serif;
   font-size: 11pt;
   line-height: 1.5;
-  color: #1a1a1a;
-  background: #fff;
+  color: #1a1a1a !important;
+  background: #fff !important;
+}
+.resume-pdf-container * {
+  color: #1a1a1a !important;
+  background: transparent !important;
+  border-color: #ccc !important;
 }
 .resume-pdf-container h1 { font-size: 1.5rem; margin: 0 0 0.5rem 0; }
 .resume-pdf-container h2 { font-size: 1.1rem; margin: 1.25rem 0 0.5rem 0; border-bottom: 1px solid #ccc; }
@@ -373,6 +378,15 @@ a:hover { text-decoration: underline; }
 .resume-pdf-container p, .resume-pdf-container li { margin: 0.25rem 0; }
 .resume-pdf-container ul { padding-left: 1.25rem; }
 .resume-pdf-container hr { border: none; border-top: 1px solid #ddd; margin: 0.75rem 0; }
+.resume-pdf-container .pill {
+  display: inline-block;
+  padding: 2px 8px;
+  margin: 2px;
+  border: 1px solid #999 !important;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+.resume-pdf-container svg { display: none; }
 
 /* --- Contact --- */
 .contact-cards {
