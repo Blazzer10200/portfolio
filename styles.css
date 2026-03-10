@@ -136,12 +136,10 @@ a:hover { text-decoration: underline; }
 
 /* --- Hero --- */
 .hero {
-  min-height: 70vh;
+  min-height: 80vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   padding: 4rem 1.25rem;
   position: relative;
   overflow: hidden;
@@ -153,34 +151,45 @@ a:hover { text-decoration: underline; }
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.12;
+  opacity: 0.15;
   -webkit-mask-image: linear-gradient(to bottom, white 50%, transparent 100%);
   mask-image: linear-gradient(to bottom, white 50%, transparent 100%);
 }
+.hero-card {
+  position: relative;
+  max-width: 560px;
+  width: 100%;
+  background: rgba(22, 27, 34, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem 2.25rem;
+  animation: cardIn 0.8s ease-out both;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0 0 0.25rem 0;
+  letter-spacing: 0.04em;
+}
 .hero-name {
-  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
   color: #fff;
-  position: relative;
-  animation: glitch 0.8s ease-out 0.2s 1;
-}
-@keyframes glitch {
-  0%   { text-shadow: 2px 0 #3b82f6, -2px 0 #ef4444; transform: translate(0); }
-  10%  { text-shadow: -2px 0 #3b82f6, 2px 0 #ef4444; transform: translate(-2px, 1px); }
-  20%  { text-shadow: 2px 0 #3b82f6, -2px 0 #ef4444; transform: translate(2px, -1px); }
-  30%  { text-shadow: -1px 0 #3b82f6, 1px 0 #ef4444; transform: translate(-1px, 0); }
-  40%  { text-shadow: 1px 0 #3b82f6, -1px 0 #ef4444; transform: translate(1px, 1px); }
-  50%  { text-shadow: 0 0 transparent; transform: translate(0); }
-  100% { text-shadow: 0 0 transparent; transform: translate(0); }
 }
 .hero-tagline {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--text-muted);
-  max-width: 480px;
-  margin: 0 0 0.5rem 0;
-  position: relative;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
 }
 .hero-tagline .cursor {
   display: inline-block;
@@ -194,40 +203,47 @@ a:hover { text-decoration: underline; }
 @keyframes blink {
   50% { opacity: 0; }
 }
-.hero-seeking {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--accent);
-  margin: 0 0 0.25rem 0;
-  position: relative;
-}
-.hero-meta {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  color: var(--text-muted);
+.hero-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin: 0 0 1.5rem 0;
-  position: relative;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+.hero-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+.hero-detail svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.hero-detail span {
+  color: var(--text);
 }
 .hero-cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  padding: 0.5rem 1rem;
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  transition: background 0.2s, color 0.2s, box-shadow 0.3s;
-  position: relative;
-}
-.hero-cta:hover {
+  padding: 0.6rem 1.25rem;
   background: var(--accent);
   color: var(--bg);
+  border: none;
+  border-radius: 6px;
+  transition: background 0.2s, box-shadow 0.3s;
+}
+.hero-cta:hover {
+  background: var(--accent-dim);
   text-decoration: none;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.35), 0 0 40px rgba(59, 130, 246, 0.1);
 }
 
 /* --- About --- */
