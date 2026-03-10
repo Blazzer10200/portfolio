@@ -11,6 +11,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* --- Custom scrollbar --- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
 /* --- Variables --- */
 :root {
   --bg: #0f1216;
@@ -115,10 +124,14 @@ a:hover { text-decoration: underline; }
 .section-title::after {
   content: '';
   display: block;
-  width: 2.5rem;
+  width: 0;
   height: 2px;
   background: var(--accent);
   margin-top: 0.5rem;
+  transition: width 0.5s ease;
+}
+.reveal.visible .section-title::after {
+  width: 2.5rem;
 }
 
 /* --- Hero --- */
@@ -151,6 +164,16 @@ a:hover { text-decoration: underline; }
   margin: 0 0 0.5rem 0;
   color: #fff;
   position: relative;
+  animation: glitch 0.8s ease-out 0.2s 1;
+}
+@keyframes glitch {
+  0%   { text-shadow: 2px 0 #3b82f6, -2px 0 #ef4444; transform: translate(0); }
+  10%  { text-shadow: -2px 0 #3b82f6, 2px 0 #ef4444; transform: translate(-2px, 1px); }
+  20%  { text-shadow: 2px 0 #3b82f6, -2px 0 #ef4444; transform: translate(2px, -1px); }
+  30%  { text-shadow: -1px 0 #3b82f6, 1px 0 #ef4444; transform: translate(-1px, 0); }
+  40%  { text-shadow: 1px 0 #3b82f6, -1px 0 #ef4444; transform: translate(1px, 1px); }
+  50%  { text-shadow: 0 0 transparent; transform: translate(0); }
+  100% { text-shadow: 0 0 transparent; transform: translate(0); }
 }
 .hero-tagline {
   font-size: 1.15rem;
@@ -197,12 +220,14 @@ a:hover { text-decoration: underline; }
   color: var(--accent);
   border: 1px solid var(--accent);
   border-radius: 6px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, box-shadow 0.3s;
+  position: relative;
 }
 .hero-cta:hover {
   background: var(--accent);
   color: var(--bg);
   text-decoration: none;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.15);
 }
 
 /* --- About --- */
@@ -282,7 +307,13 @@ a:hover { text-decoration: underline; }
   border: 1px solid rgba(37, 99, 235, 0.4);
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+}
+.reveal.visible .skill-pills .pill {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 .skill-pills .pill:hover {
   border-color: var(--accent);
@@ -306,6 +337,11 @@ a:hover { text-decoration: underline; }
   border-radius: 8px;
   padding: 1.25rem;
   margin-bottom: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.job:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.15), 0 0 30px rgba(59, 130, 246, 0.05);
 }
 .job:last-of-type { margin-bottom: 0; }
 .job-head {
@@ -360,12 +396,13 @@ a:hover { text-decoration: underline; }
   font-size: 0.9rem;
   color: var(--text);
   text-decoration: none;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.3s, box-shadow 0.3s;
 }
 a.contact-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--accent);
   text-decoration: none;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.15), 0 0 30px rgba(59, 130, 246, 0.05);
 }
 .contact-card-static {
   cursor: default;

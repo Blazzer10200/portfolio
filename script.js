@@ -119,7 +119,7 @@ if (header) {
   setTimeout(type, 500);
 })();
 
-// --- Scroll reveal ---
+// --- Scroll reveal + staggered pills ---
 (function () {
   var reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
@@ -128,10 +128,29 @@ if (header) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        // stagger skill pills inside this section
+        var pills = entry.target.querySelectorAll('.skill-pills .pill');
+        pills.forEach(function (pill, i) {
+          pill.style.transitionDelay = (i * 0.04) + 's';
+        });
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.15 });
 
   reveals.forEach(function (el) { observer.observe(el); });
+})();
+
+// --- Subtle parallax on hero ---
+(function () {
+  var hero = document.querySelector('.hero');
+  var canvas = document.getElementById('code-rain');
+  if (!hero || !canvas) return;
+
+  window.addEventListener('scroll', function () {
+    var scrollY = window.scrollY;
+    var heroH = hero.offsetHeight;
+    if (scrollY > heroH) return;
+    canvas.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
+  }, { passive: true });
 })();
