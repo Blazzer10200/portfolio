@@ -357,8 +357,8 @@ a:hover { text-decoration: underline; }
 /* Hidden container for PDF generation */
 .resume-pdf-container {
   position: fixed;
-  left: -9999px;
   top: 0;
+  left: 0;
   width: 210mm;
   padding: 15mm;
   font-family: 'Outfit', sans-serif;
@@ -366,6 +366,8 @@ a:hover { text-decoration: underline; }
   line-height: 1.5;
   color: #1a1a1a !important;
   background: #fff !important;
+  z-index: -1;
+  overflow: hidden;
 }
 .resume-pdf-container * {
   color: #1a1a1a !important;
