@@ -161,25 +161,21 @@ a:hover { text-decoration: underline; }
   font-size: clamp(2.25rem, 6vw, 3.5rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
   color: #fff;
   position: relative;
-  animation: glitch 0.8s ease-out 0.2s 1;
+  animation: fadeGlow 1s ease-out 0.2s both;
 }
-@keyframes glitch {
-  0%   { text-shadow: 2px 0 #3b82f6, -2px 0 #ef4444; transform: translate(0); }
-  10%  { text-shadow: -2px 0 #3b82f6, 2px 0 #ef4444; transform: translate(-2px, 1px); }
-  20%  { text-shadow: 2px 0 #3b82f6, -2px 0 #ef4444; transform: translate(2px, -1px); }
-  30%  { text-shadow: -1px 0 #3b82f6, 1px 0 #ef4444; transform: translate(-1px, 0); }
-  40%  { text-shadow: 1px 0 #3b82f6, -1px 0 #ef4444; transform: translate(1px, 1px); }
-  50%  { text-shadow: 0 0 transparent; transform: translate(0); }
-  100% { text-shadow: 0 0 transparent; transform: translate(0); }
+@keyframes fadeGlow {
+  0%   { opacity: 0; text-shadow: 0 0 20px rgba(59, 130, 246, 0.6); transform: translateY(-8px); }
+  60%  { opacity: 1; text-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+  100% { opacity: 1; text-shadow: none; transform: translateY(0); }
 }
 .hero-tagline {
   font-size: 1.15rem;
   color: var(--text-muted);
   max-width: 480px;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 1.25rem 0;
   position: relative;
 }
 .hero-tagline .cursor {
@@ -194,20 +190,33 @@ a:hover { text-decoration: underline; }
 @keyframes blink {
   50% { opacity: 0; }
 }
+.hero-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem 0;
+  position: relative;
+  animation: fadeUp 0.8s ease-out 1s both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 .hero-seeking {
   font-family: var(--font-mono);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--accent);
-  margin: 0 0 0.25rem 0;
-  position: relative;
+}
+.hero-divider {
+  width: 1px;
+  height: 1rem;
+  background: var(--border);
 }
 .hero-meta {
   font-family: var(--font-mono);
   font-size: 0.9rem;
   color: var(--text-muted);
-  margin: 0 0 1.5rem 0;
-  position: relative;
 }
 .hero-cta {
   display: inline-block;
