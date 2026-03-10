@@ -57,3 +57,81 @@ if (header) {
     }
   }, { passive: true });
 }
+
+// --- Code rain effect in hero background ---
+(function () {
+  var canvas = document.getElementById('code-rain');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var chars = '01{}[]<>/;:=+-%!?#$&function()const var let if else return true false null'.split('');
+  var fontSize = 14;
+  var columns;
+  var drops;
+
+  function resize() {
+    canvas.width = canvas.parentElement.offsetWidth;
+    canvas.height = canvas.parentElement.offsetHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = [];
+    for (var i = 0; i < columns; i++) {
+      drops[i] = Math.random() * -100;
+    }
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function draw() {
+    ctx.fillStyle = 'rgba(15, 18, 22, 0.15)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#3b82f6';
+    ctx.font = fontSize + 'px JetBrains Mono, monospace';
+
+    for (var i = 0; i < drops.length; i++) {
+      var char = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i] += 0.5;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// --- Typing effect on hero tagline ---
+(function () {
+  var el = document.getElementById('hero-tagline');
+  if (!el) return;
+  var text = 'IT and support \u2014 hardware, troubleshooting, scripting, and using AI to get things done';
+  var i = 0;
+  var cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  el.appendChild(cursor);
+
+  function type() {
+    if (i < text.length) {
+      el.insertBefore(document.createTextNode(text[i]), cursor);
+      i++;
+      setTimeout(type, 35 + Math.random() * 25);
+    }
+  }
+  setTimeout(type, 500);
+})();
+
+// --- Scroll reveal ---
+(function () {
+  var reveals = document.querySelectorAll('.reveal');
+  if (!reveals.length) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  reveals.forEach(function (el) { observer.observe(el); });
+})();

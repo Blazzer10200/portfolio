@@ -130,6 +130,17 @@ a:hover { text-decoration: underline; }
   align-items: center;
   text-align: center;
   padding: 4rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.12;
 }
 .hero-name {
   font-size: clamp(2.25rem, 6vw, 3.5rem);
@@ -137,12 +148,26 @@ a:hover { text-decoration: underline; }
   letter-spacing: -0.02em;
   margin: 0 0 0.5rem 0;
   color: #fff;
+  position: relative;
 }
 .hero-tagline {
   font-size: 1.15rem;
   color: var(--text-muted);
   max-width: 480px;
   margin: 0 0 0.5rem 0;
+  position: relative;
+}
+.hero-tagline .cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--accent);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.7s step-end infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
 }
 .hero-seeking {
   font-family: var(--font-mono);
@@ -150,12 +175,14 @@ a:hover { text-decoration: underline; }
   font-weight: 500;
   color: var(--accent);
   margin: 0 0 0.25rem 0;
+  position: relative;
 }
 .hero-meta {
   font-family: var(--font-mono);
   font-size: 0.9rem;
   color: var(--text-muted);
   margin: 0 0 1.5rem 0;
+  position: relative;
 }
 .hero-cta {
   display: inline-block;
@@ -313,83 +340,6 @@ a:hover { text-decoration: underline; }
   margin: 0;
 }
 
-/* --- Resume section --- */
-.resume-text { margin: 0 0 1rem 0; color: var(--text-muted); }
-.btn {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.6rem 1.25rem;
-  border-radius: 6px;
-  transition: background 0.2s, border-color 0.2s;
-}
-.btn-primary {
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-}
-.btn-primary:hover {
-  background: #2563eb;
-  text-decoration: none;
-}
-.btn-outline {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-}
-.btn-outline:hover {
-  background: rgba(37, 99, 235, 0.1);
-  text-decoration: none;
-}
-.resume-downloads {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-.resume-status {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin: 0.5rem 0 0 0;
-  min-height: 1.25rem;
-}
-/* Hidden container for PDF generation */
-.resume-pdf-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 210mm;
-  padding: 15mm;
-  font-family: 'Outfit', sans-serif;
-  font-size: 11pt;
-  line-height: 1.5;
-  color: #1a1a1a !important;
-  background: #fff !important;
-  z-index: -1;
-  overflow: hidden;
-}
-.resume-pdf-container * {
-  color: #1a1a1a !important;
-  background: transparent !important;
-  border-color: #ccc !important;
-}
-.resume-pdf-container h1 { font-size: 1.5rem; margin: 0 0 0.5rem 0; }
-.resume-pdf-container h2 { font-size: 1.1rem; margin: 1.25rem 0 0.5rem 0; border-bottom: 1px solid #ccc; }
-.resume-pdf-container h3 { font-size: 1rem; margin: 0.75rem 0 0.25rem 0; }
-.resume-pdf-container p, .resume-pdf-container li { margin: 0.25rem 0; }
-.resume-pdf-container ul { padding-left: 1.25rem; }
-.resume-pdf-container hr { border: none; border-top: 1px solid #ddd; margin: 0.75rem 0; }
-.resume-pdf-container .pill {
-  display: inline-block;
-  padding: 2px 8px;
-  margin: 2px;
-  border: 1px solid #999 !important;
-  border-radius: 4px;
-  font-size: 0.85rem;
-}
-.resume-pdf-container svg { display: none; }
-
 /* --- Contact --- */
 .contact-cards {
   display: flex;
@@ -437,4 +387,15 @@ a.contact-card:hover {
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* --- Scroll reveal --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
