@@ -119,16 +119,6 @@ if (header) {
   setTimeout(type, 500);
 })();
 
-// --- Slide navigation buttons ---
-document.querySelectorAll('.slide-btn').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    var target = document.querySelector(this.dataset.target);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-
 // --- Scroll reveal + staggered pills ---
 (function () {
   var reveals = document.querySelectorAll('.reveal');

@@ -1,9 +1,6 @@
 /* --- Reset & base --- */
 *, *::before, *::after { box-sizing: border-box; }
-html {
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-}
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: 'Outfit', sans-serif;
@@ -108,33 +105,11 @@ a:hover { text-decoration: underline; }
   max-width: 720px;
   margin: 0 auto;
   padding: 3rem 1.25rem;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 4.5rem;
 }
 .section:first-of-type {
   padding-top: 3rem;
-}
-
-/* --- Slide layout --- */
-.slide {
-  min-height: 100vh;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-.section.slide {
-  max-width: 100%;
-  width: 100%;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-.section.slide > *:not(.slide-nav) {
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
 }
 .section-title {
   font-family: var(--font-mono);
@@ -161,7 +136,7 @@ a:hover { text-decoration: underline; }
 
 /* --- Hero --- */
 .hero {
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -273,7 +248,7 @@ a:hover { text-decoration: underline; }
 
 /* --- About --- */
 .section.about {
-  padding-top: 5rem;
+  padding-top: 3.25rem;
 }
 .about-content {
   border-left: 3px solid var(--border);
@@ -467,42 +442,6 @@ a.contact-card:hover {
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
-}
-
-/* --- Slide navigation --- */
-.slide-nav {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 1rem;
-  z-index: 5;
-}
-.slide-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  color: var(--text-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-}
-.slide-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: var(--bg-card-hover);
-}
-.slide-btn.slide-next {
-  animation: bobDown 2s ease-in-out infinite;
-}
-@keyframes bobDown {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
 }
 
 /* --- Scroll reveal --- */
