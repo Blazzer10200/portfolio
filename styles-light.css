@@ -337,6 +337,8 @@ a:hover { text-decoration: underline; }
 }
 
 /* --- Projects --- */
+.project-steps { margin-top: 1.25rem; }
+.project-result { margin-top: 1.5rem; }
 .workflow-desc {
   font-size: 0.9rem;
   color: var(--text-muted);
